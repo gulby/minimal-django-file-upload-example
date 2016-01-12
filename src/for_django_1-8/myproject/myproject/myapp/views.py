@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.core.urlresolvers import reverse
 
 from myproject.myapp.models import Document
@@ -13,6 +13,7 @@ documents_home = '/home/lleo52/minimal-django-file-upload-example/src/for_django
 sys.path.append('%s/python' % caffe_home)
 import caffe
 import numpy as np
+import json
 
 def list(request):
     # gulby
@@ -48,16 +49,21 @@ def list(request):
             #print(np_result.argsort()[-1:-6:-1])
 
             #results = labels[np_result.argsort()[-1:-4:-1]]
-            results = ['%s : %2.2f%%' % (labels[i], np_result[i]*100) for i in np_result.argsort()[-1:-4:-1]]
+            #results = ['%s : %2.2f%%' % (labels[i], np_result[i]*100) for i in np_result.argsort()[-1:-4:-1]]
+            results = {}
+            for i, t in enumerate(np_result.argsort()[-1:-4:-1]):
+                results['top%d' % (i+1)] = (labels[t], '%f' % np_result[t])
             
             # Redirect to the document list after POST
             #return HttpResponseRedirect(reverse('myproject.myapp.views.list'))
             
-            return render_to_response(
-                'list.html',
-                {'form': form, 'results': results},
-                context_instance=RequestContext(request)
-            )
+            #return render_to_response(
+            #    'list.html',
+            #    {'form': form, 'results': results},
+            #    context_instance=RequestContext(request)
+            #)
+
+            return JsonResponse(results)
     else:
         form = DocumentForm()  # A empty, unbound form
 

@@ -18,7 +18,7 @@ def list(request):
     # gulby
     results = None
     model_def = '%s/gulby/uspace3_vgg16_original.prototxt' % caffe_home
-    pretrained_model = '%s/gulby/uspace_50_final.caffemodel' % caffe_home
+    pretrained_model = '%s/gulby/uspace_50_final_add.caffemodel' % caffe_home
     label_file = '%s/gulby/labels_only_name.txt' % caffe_home
     images_dim = '256,256'
     input_scale = None
@@ -45,8 +45,10 @@ def list(request):
             np_result = classifier.predict([caffe.io.load_image('%s/%s' % (documents_home, test_file))], True).flatten()
             #print(np_result)
             labels = np.loadtxt(label_file, str, delimiter='\t')
-            print(np_result.argsort()[-1:-6:-1])
-            results = labels[np_result.argsort()[-1:-6:-1]]
+            #print(np_result.argsort()[-1:-6:-1])
+
+            #results = labels[np_result.argsort()[-1:-4:-1]]
+            results = ['%s : %2.2f%%' % (labels[i], np_result[i]*100) for i in np_result.argsort()[-1:-4:-1]]
             
             # Redirect to the document list after POST
             #return HttpResponseRedirect(reverse('myproject.myapp.views.list'))

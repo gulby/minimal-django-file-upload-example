@@ -19,7 +19,7 @@ def list(request):
     # gulby
     results = None
     model_def = '%s/gulby/uspace3_vgg16_original.prototxt' % caffe_home
-    pretrained_model = '%s/gulby/uspace_50_final_add.caffemodel' % caffe_home
+    pretrained_model = '%s/gulby/uspace_50_final_add_aug.caffemodel' % caffe_home
     label_file = '%s/gulby/labels_only_name.txt' % caffe_home
     images_dim = '256,256'
     input_scale = None
@@ -48,22 +48,23 @@ def list(request):
             labels = np.loadtxt(label_file, str, delimiter='\t')
             #print(np_result.argsort()[-1:-6:-1])
 
-            #results = labels[np_result.argsort()[-1:-4:-1]]
-            #results = ['%s : %2.2f%%' % (labels[i], np_result[i]*100) for i in np_result.argsort()[-1:-4:-1]]
+            results2 = labels[np_result.argsort()[-1:-4:-1]]
+            results2 = ['%s : %2.2f%%' % (labels[i], np_result[i]*100) for i in np_result.argsort()[-1:-4:-1]]
             results = {}
             for i, t in enumerate(np_result.argsort()[-1:-4:-1]):
                 results['top%d' % (i+1)] = (labels[t], '%f' % np_result[t])
             
             # Redirect to the document list after POST
             #return HttpResponseRedirect(reverse('myproject.myapp.views.list'))
-            
-            #return render_to_response(
-            #    'list.html',
-            #    {'form': form, 'results': results},
-            #    context_instance=RequestContext(request)
-            #)
 
-            return JsonResponse(results)
+            if request.POST['resulttype'] == 'html':
+                return render_to_response(
+                    'list.html',
+                    {'form': form, 'results': results2},
+                    context_instance=RequestContext(request)
+                )
+            else:
+                return JsonResponse(results)
     else:
         form = DocumentForm()  # A empty, unbound form
 

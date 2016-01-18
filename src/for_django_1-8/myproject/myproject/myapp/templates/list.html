@@ -11,12 +11,23 @@
             {% csrf_token %}
             <p>{{ form.non_field_errors }}</p>
 
+            <p>{{ form.resulttype.label_tag }} {{ form.resulttype }}</p>
+
             <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
 
             <p>
                 {{ form.docfile.errors }}
                 {{ form.docfile }}
             </p>
+
+            <p>
+                {{ form.newaddr.label_tag }} {{ form.newaddr }}
+            </p>
+            <p>
+                {{ form.oldaddr.label_tag }} {{ form.oldaddr }}
+            </p>
+            <p> {{ form.latitude.label_tag }} {{ form.latitude }}</p>
+            <p> {{ form.longitude.label_tag }} {{ form.longitude }}</p>
 
             <p><input type="submit" value="Photo Positioning"/></p>
         </form>

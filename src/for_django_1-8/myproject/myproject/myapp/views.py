@@ -14,12 +14,14 @@ sys.path.append('%s/python' % caffe_home)
 import caffe
 import numpy as np
 import json
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def list(request):
     # gulby
     results = None
     model_def = '%s/gulby/uspace3_vgg16_original.prototxt' % caffe_home
-    pretrained_model = '%s/gulby/uspace_50_final_add_aug.caffemodel' % caffe_home
+    pretrained_model = '%s/gulby/uspace_50_final_add_aug_ft1.caffemodel' % caffe_home
     label_file = '%s/gulby/labels_only_name.txt' % caffe_home
     images_dim = '256,256'
     input_scale = None

@@ -19,7 +19,7 @@ class DocumentForm(forms.Form):
     )
     resulttype = forms.ChoiceField(
         label='Result Display Type',
-        choices=(('html', 'html'), ('json', 'josn')),
+        choices=(('html', 'html'), ('json', 'json')),
     )
     latitude = forms.FloatField(
         label='latitude (optional)',

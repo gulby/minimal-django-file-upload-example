@@ -25,7 +25,7 @@ def list(request):
     results = None
     results2 = None
     model_def = '%s/gulby/uspace3_vgg16_original.prototxt' % caffe_home
-    pretrained_model = '%s/gulby/uspace_50_final_add_aug_ft1.caffemodel' % caffe_home
+    pretrained_model = '%s/gulby/uspace_50_final_add_aug_ft2_8800.caffemodel' % caffe_home
     label_file = '%s/gulby/labels_only_name.txt' % caffe_home
     images_dim = '256,256'
     input_scale = None

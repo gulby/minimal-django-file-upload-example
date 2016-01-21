@@ -8,10 +8,10 @@ from myproject.myapp.models import Document
 from myproject.myapp.forms import DocumentForm
 
 import sys
-#caffe_home = '/home/lleo52/caffe'
-caffe_home = '/home/gulby/caffe'
-#documents_home = '/home/lleo52/minimal-django-file-upload-example/src/for_django_1-8/myproject/media'
-documents_home = '/home/gulby/git/Temp/django/minimal-django-file-upload-example/src/for_django_1-8/myproject/media'
+caffe_home = '/home/lleo52/caffe'
+#caffe_home = '/home/gulby/caffe'
+documents_home = '/home/lleo52/minimal-django-file-upload-example/src/for_django_1-8/myproject/media'
+#documents_home = '/home/gulby/git/Temp/django/minimal-django-file-upload-example/src/for_django_1-8/myproject/media'
 sys.path.append('%s/python' % caffe_home)
 import caffe
 import numpy as np

@@ -5,12 +5,13 @@ from django import forms
 
 class DocumentForm(forms.Form):
     docfile = forms.FileField(
-        label='Select a image',
+        label='Select a image(optional, only uspace_50 now)',
+        required=False,
     )
     newaddr = forms.CharField(
-        label='New Address (optional)',
+        label='New Address (required)',
         max_length=200,
-        required=False,
+        required=True,
     )
     oldaddr = forms.CharField(
         label='Old Address (optional)',

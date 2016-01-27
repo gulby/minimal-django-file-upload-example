@@ -36,9 +36,6 @@ def list(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            newdoc = Document(docfile=request.FILES['docfile'])
-            newdoc.save()
-            
             # address
             #print('address : %s' % request.POST['newaddr'])
             db = MySQLdb.connect(host="127.0.0.1", port=3306, user="root", passwd="", db="address")
@@ -61,7 +58,9 @@ def list(request):
 
             # uspace
             #'''
-            if new_addr.startswith(u'경기도성남시분당구대왕판교로660') or new_addr.startswith(u'경기도성남시분당구대왕판교로670'):
+            if (new_addr.startswith(u'경기도성남시분당구대왕판교로660') or new_addr.startswith(u'경기도성남시분당구대왕판교로670')) and 'docfile' in request.FILES:
+                newdoc = Document(docfile=request.FILES['docfile'])
+                newdoc.save()
                 test_file = newdoc.docfile.name
                 image_dims = [int(s) for s in images_dim.split(',')]
                 mean = np.ndarray(shape=(3), dtype=float)

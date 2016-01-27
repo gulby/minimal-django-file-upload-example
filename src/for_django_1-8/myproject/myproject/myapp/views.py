@@ -8,9 +8,9 @@ from myproject.myapp.models import Document
 from myproject.myapp.forms import DocumentForm
 
 import sys
-caffe_home = '/home/lleo52/caffe'
+caffe_home = '/home/azureroot/caffe'
 #caffe_home = '/home/gulby/caffe'
-documents_home = '/home/lleo52/minimal-django-file-upload-example/src/for_django_1-8/myproject/media'
+documents_home = '/home/azureroot/minimal-django-file-upload-example/src/for_django_1-8/myproject/media'
 #documents_home = '/home/gulby/git/Temp/django/minimal-django-file-upload-example/src/for_django_1-8/myproject/media'
 sys.path.append('%s/python' % caffe_home)
 import caffe
@@ -49,7 +49,7 @@ def list(request):
             db.query("set character_set_database=utf8;")
             cursor = db.cursor()
             new_addr = request.POST['newaddr'].replace(' ', '')
-            query = u"select place_name from place where new_addr like '%s%%'" % new_addr
+            query = u"select place_name from place where new_addr like '%s%%' limit 5" % new_addr
             #print u"query : %s " % query
             cursor.execute(query.encode('utf8'))
             raw_result = cursor.fetchall()

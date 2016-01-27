@@ -46,7 +46,7 @@ def list(request):
             db.query("set character_set_database=utf8;")
             cursor = db.cursor()
             new_addr = request.POST['newaddr'].replace(' ', '')
-            query = u"select place_name from place where new_addr like '%s%%' limit 5" % new_addr
+            query = u"select place_name from place where new_addr like '%s%%'" % new_addr
             #print u"query : %s " % query
             cursor.execute(query.encode('utf8'))
             raw_result = cursor.fetchall()
@@ -55,6 +55,11 @@ def list(request):
             for i, t in enumerate(raw_result[:5]):
                 results['top%d' % (i+1)] = (t[0], '%f' % (0.5/len(raw_result)))
             db.close()
+
+            if not results:
+                with open('address.log', 'a') as f:
+                  f.write(new_addr.encode('utf8'))
+                  f.write(u'\n')
 
             # uspace
             #'''
